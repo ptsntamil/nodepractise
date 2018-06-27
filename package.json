@@ -5,8 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js",
+    "dev":"nodemon server.js"
   },
   "author": "Tamilarasan P",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.0.2",
+    "cors": "2.8.1",
+    "express": "4.0.0",
+    "mongodb": "2.2.16",
+    "mongoose": "~3.6.13"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.5"
+  }
 }
