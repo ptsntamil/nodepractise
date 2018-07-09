@@ -3,7 +3,8 @@ module.exports = function(app, db) {
 	app.post('/note', function(req,res) {
 		db.collection('notes').insert({
 			text: req.body.text,
-			title: req.body.title
+			title: req.body.title,
+			txt: req.body.tst
 		}, (err, response) => {
 			console.log(response);
 			if(err) {
@@ -16,6 +17,7 @@ module.exports = function(app, db) {
 			}
 			
 		})
+
 	});
 	app.get('/note/:id', (req, res) => {
 		console.log(req.params);
@@ -24,7 +26,7 @@ module.exports = function(app, db) {
         }, (err, response) => {
         	if(err) {
         		res.send({
-        			"message": "Error in getting note.",
+        			"message": "Error indf getting note.",
 			        "success": false
         		});
         	} else {
