@@ -1,4 +1,4 @@
-var ObjectID = require('mongodb').ObjectID;
+//var ObjectID = require('mongodb').ObjectID;
 const Signature = require('./../model/signature.js')
 module.exports = function(app, db) {
 	app.get('/', function(req, res) {
@@ -8,7 +8,7 @@ module.exports = function(app, db) {
 	//====GET ALL SIGNATURES===//
 	app.get('/api/signatures', function(req, res) {
 	  Signature.find({}, (err, eachOne) => {
-	    res.json(eachOne);
+	    res.send(eachOne);
 	    })
 	  })
 	//==========================//

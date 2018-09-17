@@ -24,5 +24,5 @@ signatureSchema.pre('save', (next) => {
 	next();
 })
 
-const Signature = mongoose.model('Signature12', signatureSchema);
+const Signature = mongoose.model('Signature', signatureSchema);
 module.exports = Signature;

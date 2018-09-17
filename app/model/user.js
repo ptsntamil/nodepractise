@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 let Schema = mongoose.Schema;
-var authorSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: {
-            firstName: String,
+        firstName: String,
         lastName: String
     },
     biography: String,
@@ -14,5 +15,15 @@ var authorSchema = mongoose.Schema({
     created: { 
         type: Date,
         default: Date.now
-    }
+    },
+    authToken: String
 });
+/*userSchema.pre('save', (next) => {
+	console.log("pre save");
+	if(!this.authToken)
+		this.authToken = jwt.sign({ id: this._id }, "ewrwrewrewr");
+	console.log(this);
+	next();
+});*/
+const User = mongoose.model('User', userSchema);
+module.exports = User;
