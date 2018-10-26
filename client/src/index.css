@@ -62,3 +62,6 @@ ol, ul {
 .stop-watch {
 	text-align: center;
 }
+.error {
+  color:#d82222;
+}
