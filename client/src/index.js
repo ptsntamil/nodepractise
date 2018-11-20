@@ -2,6 +2,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter,Switch, Route } from "react-router-dom";
 //import App from './App';
 class Edit extends React.Component {
   render() {
@@ -210,8 +211,51 @@ class UserForm extends React.Component {
     );
   }
 }
+
+class UserList extends React.Component {
+  render() {
+    return(
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12 col-md-12 col-lg-12">
+            <h2>List of User</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12 col-md-12 col-lg-12">
+            <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>DOB</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              {/*{this.renderTable(list)}*/}
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class UserApp extends React.Component {
+  render() {  
+    return(
+      <Switch>
+        <Route exact path='/' component={UserList}/>
+      </Switch>
+    );
+  }
+}
+
 ReactDOM.render(
-  <UserForm />,
+  <BrowserRouter>
+    <UserApp />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
