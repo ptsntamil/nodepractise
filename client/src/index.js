@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter,Switch, Route } from "react-router-dom";
+import { store } from './store';
+
 //import App from './App';
 class Edit extends React.Component {
   render() {
@@ -15,16 +17,16 @@ class Edit extends React.Component {
 class UserForm extends React.Component {
   constructor() {
     super();
-    this.state = {
-      user: {},
-      list: [],
-      error: {
-        name: true,
-        email: true,
-        dob: true
-      },
-      formValid: false
-    };
+     this.state = store.getState();//{
+    //   user: {},
+    //   list: [],
+    //   error: {
+    //     name: true,
+    //     email: true,
+    //     dob: true
+    //   },
+    //   formValid: false
+    //};
     this.userObject = ["name", "email", "dob", "age"];
   }
 
@@ -113,25 +115,6 @@ class UserForm extends React.Component {
     this.clear();
   }
 
-  renderTable = list => (
-    <tbody>
-      {!list.length &&
-        <tr><td colSpan="5" className="text-center">No Data Found</td></tr>
-      }
-      {list.map((data) => (
-        <tr key={data.id}>
-          <td>{data.name}</td>
-          <td>{data.email}</td>
-          <td>{data.age}</td>
-          <td>{data.dob}</td>
-          <td>
-            <Edit onClick={this.editUser} data={data}/>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  )
-
   render() {
     const {list, user, error} = this.state;
     return (
@@ -186,6 +169,39 @@ class UserForm extends React.Component {
             </form>
           </div>
         </div>
+      </div>
+    );
+  }
+}
+
+class UserList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  renderTable = list => (
+    <tbody>
+      {!list.length &&
+        <tr><td colSpan="5" className="text-center">No Data Found</td></tr>
+      }
+      {list.map((data) => (
+        <tr key={data.id}>
+          <td>{data.name}</td>
+          <td>{data.email}</td>
+          <td>{data.age}</td>
+          <td>{data.dob}</td>
+          <td>
+            <Edit onClick={this.editUser} data={data}/>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  )
+
+  render() {
+    let list = store.getState().list;
+    return(
+      <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2>List of User</h2>
@@ -212,41 +228,12 @@ class UserForm extends React.Component {
   }
 }
 
-class UserList extends React.Component {
-  render() {
-    return(
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-12 col-md-12 col-lg-12">
-            <h2>List of User</h2>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-12 col-md-12 col-lg-12">
-            <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>DOB</th>
-                <th>Action</th>
-              </tr>
-              </thead>
-              {/*{this.renderTable(list)}*/}
-            </table>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
 class UserApp extends React.Component {
   render() {  
     return(
       <Switch>
         <Route exact path='/' component={UserList}/>
+        <Route exact path='/user' component={UserForm}/>
       </Switch>
     );
   }
