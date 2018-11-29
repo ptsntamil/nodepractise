@@ -2,9 +2,13 @@ import { createStore } from 'redux';
 import reducer from '../reducers';
 
 const initialState = { 
-  list: [{
-    name: "Tamil",
-    email: "ptntamil@gmail.com"
-  }]
+  list: [],
+  user: {},
+  error: {
+    name: true,
+    email: true,
+    dob: true
+  },
+  formValid: false
 };
 export const store = createStore(reducer, initialState);

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter,Switch, Route } from "react-router-dom";
 import { store } from './store';
-
+import {actions} from './actions'
 //import App from './App';
 class Edit extends React.Component {
   render() {
@@ -17,21 +17,12 @@ class Edit extends React.Component {
 class UserForm extends React.Component {
   constructor() {
     super();
-     this.state = store.getState();//{
-    //   user: {},
-    //   list: [],
-    //   error: {
-    //     name: true,
-    //     email: true,
-    //     dob: true
-    //   },
-    //   formValid: false
-    //};
+    this.state = store.getState();
     this.userObject = ["name", "email", "dob", "age"];
   }
 
   clear = () => {
-    this.setState({
+    store.dispatch(actions.userForm({
       user: {
         name: "",
         email: "",
@@ -44,11 +35,11 @@ class UserForm extends React.Component {
         email: true,
         dob: true
       },
-    });
+    }));
   } 
 
   handleChange = event => {
-    let {user, error, formValid} = this.state;
+    let { user, error, formValid } = this.state;
     const field = event.target.id;
     const fieldValue = event.target.value;
     user[field] = fieldValue;
@@ -85,11 +76,11 @@ class UserForm extends React.Component {
     // } else {
     //   formValid = false;
     // }
-    this.setState({
+    store.dispatch(actions.userForm({
       user,
       error,
       formValid
-    });
+    }));   
   }
 
   editUser = (user) => {
@@ -109,14 +100,12 @@ class UserForm extends React.Component {
       user.id = list.length + 1;
       list.push(user);
     }
-    this.setState({
-      list:list 
-    });
+    store.dispatch(actions.addUser(list));
     this.clear();
   }
 
   render() {
-    const {list, user, error} = this.state;
+    const {user, error} = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -161,7 +150,7 @@ class UserForm extends React.Component {
                 </div>
                 <div className="row">
                   <div className="col-sm-6 col-md-6 col-lg-2">
-                    <button type="button" className="btn btn-primary" onClick={this.addToList} disabled={!this.state.formValid} id="add"> {!user.id ? "Add" : "Update"} </button>
+                    <button type="button" className="btn btn-primary" onClick={this.addToList} disabled={!store.getState().formValid} id="add"> {!user.id ? "Add" : "Update"} </button>
                     <button type="button" className="btn btn-default" onClick={this.clear} id="add">Clear</button>
                   </div>
                 </div>
@@ -239,12 +228,16 @@ class UserApp extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <BrowserRouter>
-    <UserApp />
-  </BrowserRouter>,
-  document.getElementById('root')
-);
 
+const render = function() {
+  ReactDOM.render(
+    <BrowserRouter>
+      <UserApp />
+    </BrowserRouter>,
+    document.getElementById('root')
+  );
+}
+render();
+store.subscribe(render)
 //ReactDOM.render(<Clock />, document.getElementById('root'));
 //registerServiceWorker();
