@@ -2,7 +2,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { BrowserRouter,Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route,Link } from "react-router-dom";
 import { store } from './store';
 import {actions} from './actions'
 //import App from './App';
@@ -11,16 +11,30 @@ class Edit extends React.Component {
     return (
       <i className="fa fa-pencil" onClick={()=>{this.props.onClick(this.props.data)}}/>
     )
-  } 
+  }
 }
 
 class UserForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = store.getState();
     this.userObject = ["name", "email", "dob", "age"];
   }
 
+  componentDidMount() {
+    let {list} = store.getState();
+    let { match } = this.props;
+    let {userId} = match.params;
+    if(userId){
+      let user = list[userId - 1]; 
+      store.dispatch(actions.userForm({
+        user,
+        error: {},
+        formValid: true
+      }));
+    }
+  }
+  
   clear = () => {
     store.dispatch(actions.userForm({
       user: {
@@ -83,14 +97,6 @@ class UserForm extends React.Component {
     }));   
   }
 
-  editUser = (user) => {
-    this.setState({
-      user,
-      error: {},
-      formValid: true
-    });
-  }
-
   addToList = () => {
     const {user,list} = this.state;
     console.log(list);
@@ -105,9 +111,17 @@ class UserForm extends React.Component {
   }
 
   render() {
-    const {user, error} = this.state;
+    const {user, error} = store.getState();
     return (
       <div className="container">
+        <div className="row">
+          <div className="col-sm-11 col-md-11 col-lg-11">
+            <h3>Create User</h3>
+          </div>
+          <div className="col-sm-1 col-md-1 col-lg-1">
+            <Link to="/">Home</Link>
+          </div>
+        </div>
         <div className="row">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <form>
@@ -165,7 +179,17 @@ class UserForm extends React.Component {
 
 class UserList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = store.getState();
+  }
+
+  editUser = (user) => {
+    store.dispatch(actions.userForm({
+      user,
+      error: {},
+      formValid: true
+    }));
+
   }
 
   renderTable = list => (
@@ -180,7 +204,8 @@ class UserList extends React.Component {
           <td>{data.age}</td>
           <td>{data.dob}</td>
           <td>
-            <Edit onClick={this.editUser} data={data}/>
+            {/* <Edit onClick={this.editUser} data={data}/> */}
+            <Link to={`user/${data.id}`}><i className="fa fa-pencil"></i></Link>
           </td>
         </tr>
       ))}
@@ -192,8 +217,11 @@ class UserList extends React.Component {
     return(
       <div className="container">
         <div className="row">
-          <div className="col-sm-12 col-md-12 col-lg-12">
+          <div className="col-sm-11 col-md-11 col-lg-11">
             <h2>List of User</h2>
+          </div>
+          <div className="col-sm-1 col-md-1 col-lg-1">
+            <Link className="btn btn-primary" to="/user">Create</Link>
           </div>
         </div>
         <div className="row">
@@ -223,6 +251,7 @@ class UserApp extends React.Component {
       <Switch>
         <Route exact path='/' component={UserList}/>
         <Route exact path='/user' component={UserForm}/>
+        <Route exact path='/user/:userId' component={UserForm}/>
       </Switch>
     );
   }
