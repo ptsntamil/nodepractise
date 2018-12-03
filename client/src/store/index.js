@@ -3,7 +3,12 @@ import reducer from '../reducers';
 
 const initialState = { 
   list: [],
-  user: {},
+  user: {
+    name: "",
+    email: "",
+    dob: "",
+    age: ""
+  },
   error: {
     name: true,
     email: true,

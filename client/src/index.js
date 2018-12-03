@@ -53,7 +53,7 @@ class UserForm extends React.Component {
   } 
 
   handleChange = event => {
-    let { user, error, formValid } = this.state;
+    let { user, error, formValid } = store.getState();
     const field = event.target.id;
     const fieldValue = event.target.value;
     user[field] = fieldValue;
@@ -98,7 +98,7 @@ class UserForm extends React.Component {
   }
 
   addToList = () => {
-    const {user,list} = this.state;
+    const {user,list} = store.getState();
     console.log(list);
     if(user.id) {
       list[user.id-1] = user;
@@ -108,6 +108,7 @@ class UserForm extends React.Component {
     }
     store.dispatch(actions.addUser(list));
     this.clear();
+    this.props.history.push("/");
   }
 
   render() {
