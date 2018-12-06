@@ -12,5 +12,11 @@ export const actions = {
             formValid: form.formValid,
             error: form.error
         };
-    } 
+    },
+    setLoginForm : function(login) {
+        return {
+            type: "LOGIN_FORM",
+            login: login
+        }
+    }
 }

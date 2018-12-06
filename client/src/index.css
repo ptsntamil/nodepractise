@@ -65,3 +65,18 @@ ol, ul {
 .error {
   color:#d82222;
 }
+.login {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* .login-page {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+} */

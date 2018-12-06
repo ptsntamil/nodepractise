@@ -14,6 +14,10 @@ const initialState = {
     email: true,
     dob: true
   },
-  formValid: false
+  formValid: false,
+  login : {
+    username: '',
+    password: ''
+  }
 };
 export const store = createStore(reducer, initialState);

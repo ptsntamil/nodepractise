@@ -13,6 +13,11 @@ export default(state, action) => {
         error: action.error,
         formValid: action.formValid
       };
+    case "LOGIN_FORM":
+      return {
+        ...state,
+        login: action.login
+      }; 
     default:
       return state;
   }
