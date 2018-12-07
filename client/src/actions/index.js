@@ -1,3 +1,4 @@
+import Constants from './../Constants';
 export const actions = {
     addUser : function(list) {
         return {
@@ -17,6 +18,13 @@ export const actions = {
         return {
             type: "LOGIN_FORM",
             login: login
+        }
+    },
+    setAuth: function(auth) {
+        return {
+            type: Constants.SET_AUTH,
+            isAuthenticated: auth.authentication,
+            login: auth.login
         }
     }
 }

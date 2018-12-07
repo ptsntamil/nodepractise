@@ -1,3 +1,4 @@
+import Constants from './../Constants';
 export default(state, action) => {
   console.log(action)
   switch(action.type) {
@@ -17,7 +18,13 @@ export default(state, action) => {
       return {
         ...state,
         login: action.login
-      }; 
+      };
+    case Constants.SET_AUTH:
+      return {
+        ...state,
+        isAuthenticated: action.isAuthenticated,
+        login: action.login
+      };
     default:
       return state;
   }

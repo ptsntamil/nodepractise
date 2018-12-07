@@ -1,0 +1,7 @@
+const Constants = {
+    ADD_USER: "ADD_USER",
+    USER_FORM: "USER_FORM",
+    LOGIN_FORM: "LOGIN_FORM",
+    SET_AUTH: "SET_AUTHENTICATION"
+}
+export default Constants;
