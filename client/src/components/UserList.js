@@ -2,7 +2,6 @@ import React from 'react';
 import { store } from './../store';
 import { actions } from './../actions';
 import { Link } from "react-router-dom";
-import Logout  from './Logout'; 
 
 class UserList extends React.Component {
     constructor(props) {
@@ -43,9 +42,6 @@ class UserList extends React.Component {
       let list = store.getState().list;
       return(
         <div className="container">
-          <div className="text-right">
-            <Logout/>
-          </div>
           <div className="row">
             <div className="col-sm-11 col-md-11 col-lg-11">
               <h2>List of User</h2>

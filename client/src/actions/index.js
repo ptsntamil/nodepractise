@@ -23,7 +23,7 @@ export const actions = {
     setAuth: function(auth) {
         return {
             type: Constants.SET_AUTH,
-            isAuthenticated: auth.authentication,
+            isAuthenticated: auth.isAuthenticated,
             login: auth.login
         }
     }

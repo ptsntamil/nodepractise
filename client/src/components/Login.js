@@ -17,10 +17,11 @@ class Login extends React.Component {
     let {login} = store.getState();
     if(login.username && login.password) {
       store.dispatch(actions.setAuth({
-        authentication: true,
+        isAuthenticated: true,
         login: login
       }));
-      this.props.history.push("/");
+      localStorage.setItem("authToken", "12321312321321313221312");
+      this.props.history.push("/users");
     } else {
       store.dispatch(actions.setAuth(false));
     }

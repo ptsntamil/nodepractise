@@ -1,6 +1,7 @@
 import React from 'react';
 import { store } from './../store';
 import { actions } from './../actions';
+import Constants from './../Constants';
 
 class Logout extends React.Component {
   constructor(props) {
@@ -9,12 +10,13 @@ class Logout extends React.Component {
 
   login = () => {
     store.dispatch(actions.setAuth({
-      authentication:false,
+      isAuthenticated: false,
       login: {
         username: "",
         password: ""
       }
     }));
+    localStorage.setItem(Constants.AUTH_TOKEN, "");
   }
 
   render() {

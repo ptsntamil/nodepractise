@@ -5,14 +5,6 @@ import './index.css';
 import { BrowserRouter} from "react-router-dom";
 import { store } from './store';
 import UserApp from './components/UserApp';
-//import App from './App';
-// class Edit extends React.Component {
-//   render() {
-//     return (
-//       <i className="fa fa-pencil" onClick={()=>{this.props.onClick(this.props.data)}}/>
-//     )
-//   }
-// }
 
 const render = function() {
   ReactDOM.render(

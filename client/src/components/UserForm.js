@@ -97,7 +97,7 @@ class UserForm extends React.Component {
       }
       store.dispatch(actions.addUser(list));
       this.clear();
-      this.props.history.push("/");
+      this.props.history.push("/users");
     }
   
     render() {
@@ -109,7 +109,7 @@ class UserForm extends React.Component {
               <h3>Create User</h3>
             </div>
             <div className="col-sm-1 col-md-1 col-lg-1">
-              <Link to="/">Home</Link>
+              <Link to="/users">Home</Link>
             </div>
           </div>
           <div className="row">
